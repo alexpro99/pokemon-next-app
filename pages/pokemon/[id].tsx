@@ -7,6 +7,8 @@ import { Layout } from "../../components/layouts";
 import { Pokemon } from "../../interfaces";
 import { localFavorites } from "../../utils";
 
+import confetti from "canvas-confetti";
+
 interface Props {
   pokemon: Pokemon;
 }
@@ -21,6 +23,19 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
   const onToggleFavorite = () => {
     setIsInFavorites(!localFavorites.existInFavorites(pokemon.id));
     localFavorites.toggleFavorite(pokemon.id);
+
+    if (isInFavorites) return;
+    
+    confetti({
+      zIndex: 900,
+      particleCount: 100,
+      spread: 160,
+      angle: -100,
+      origin: {
+        x: 1,
+        y: 0,
+      },
+    });
   };
 
   return (
