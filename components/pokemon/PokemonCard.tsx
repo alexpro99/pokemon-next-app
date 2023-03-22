@@ -18,7 +18,7 @@ export const PokemonCard: FunctionComponent<PokemonCardProps> = ({
 
   return (
     <Grid xs={6} sm={3} md={2} xl={1} key={id}>
-      <Card isHoverable isPressable css={{ p: 1 }} onClick={onClick}>
+      <Card isHoverable isPressable css={{ p: 1 }} onPress={onClick}>
         <Card.Body css={{ p: 1 }}>
           <Card.Image src={img} width="100%" height={140} />
         </Card.Body>
