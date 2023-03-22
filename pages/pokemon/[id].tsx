@@ -4,14 +4,20 @@ import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { pokeApi } from "../../api";
 import { Layout } from "../../components/layouts";
 import { Pokemon } from "../../interfaces";
+import { localFavorites } from "../../utils";
 
 interface Props {
   pokemon: Pokemon;
 }
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
+  console.log(pokemon);
+  const onToggleFavorite = () => {
+    localFavorites.toggleFavorite(pokemon.id);
+  };
+
   return (
-    <Layout title="Pokemon">
+    <Layout title={pokemon.name}>
       <Grid.Container css={{ marginTop: 5 }} gap={2}>
         <Grid xs={12} sm={4}>
           <Card isHoverable css={{ padding: 30 }}>
@@ -37,7 +43,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
               <Text h1 transform="capitalize">
                 {pokemon.name}
               </Text>
-              <Button color="gradient" ghost>
+              <Button onPress={onToggleFavorite} color="gradient" ghost>
                 Guardar en favoritos
               </Button>
             </Card.Header>
@@ -78,7 +84,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pokemons = [...Array(151)].map((value, index) => `${index + 1}`);
+  const pokemons = [...Array(10)].map((value, index) => `${index + 1}`);
   return {
     paths: pokemons.map((id) => ({
       params: { id },
@@ -97,6 +103,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       pokemon: {
+        id,
         name,
         sprites,
       },
