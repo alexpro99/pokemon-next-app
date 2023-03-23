@@ -14,7 +14,7 @@ export const PokemonCard: FunctionComponent<PokemonCardProps> = ({
 
   const router = useRouter();
 
-  const onClick = () => router.push(`/pokemon/${id}`);
+  const onClick = () => router.push(`/name/${name}`);
 
   return (
     <Grid xs={6} sm={3} md={2} xl={1} key={id}>
